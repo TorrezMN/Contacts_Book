@@ -1,23 +1,23 @@
 import requests
 import random
 
-# Create a list of 100 random titles
+# Create a list of 500 random titles
 titles = []
-for i in range(100):
+for i in range(500):
   titles.append(f'Test Post {i}')
 
-# Create a list of 100 random bodies
+# Create a list of 500 random bodies
 bodies = []
-for i in range(100):
+for i in range(500):
   bodies.append(f'This is the body of test post {i}')
 
-# Create a list of 100 random authors
+# Create a list of 500 random authors
 authors = []
-for i in range(100):
+for i in range(500):
   authors.append(f'Author {i}')
 
 # Create a new post for each title, body, and author
-for i in range(100):
+for i in range(500):
   post = {
     'title': titles[i],
     'body': bodies[i],
