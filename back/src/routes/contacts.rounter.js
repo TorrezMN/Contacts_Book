@@ -94,4 +94,25 @@ contactRouter.post("/filter_by_last_name/:name", async (req, res, next) => {
   });
 });
 
+contactRouter.post("/filter_by_address/:l_address", async (req, res, next) => {
+  // Get the contact ID from the request parameters
+  const location_address = req.params.l_address;
+  Contact.find({ address: { $regex: location_address } }, function (err, result) {
+    if (err) {
+      res.status(400).send({
+        success: false,
+        error: err.message,
+      });
+    }
+    res.status(200).send({
+      success: true,
+      size: result.length,
+      data: result,
+    });
+  });
+});
+
+
+
+
 module.exports = contactRouter;
