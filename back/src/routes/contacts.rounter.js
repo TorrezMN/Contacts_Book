@@ -4,7 +4,6 @@ const Contact = require("../models/contact.model.js");
 
 // Import CRUD helpres.
 
-
 contactRouter.get("/", (req, res) => {
   Contact.find({}, function (err, result) {
     if (err) {
@@ -57,6 +56,42 @@ contactRouter.delete("/:contact_id", async (req, res, next) => {
   await contact.delete();
   // Return a success response
   res.status(200).json({ message: "Contact deleted successfully" });
+});
+
+contactRouter.post("/filter_by_name/:name", async (req, res, next) => {
+  // Get the contact ID from the request parameters
+  const contact_name = req.params.name;
+  Contact.find({ name: { $regex: contact_name } }, function (err, result) {
+    if (err) {
+      res.status(400).send({
+        success: false,
+        error: err.message,
+      });
+    }
+    res.status(200).send({
+      success: true,
+      size: result.length,
+      data: result,
+    });
+  });
+});
+
+contactRouter.post("/filter_by_last_name/:name", async (req, res, next) => {
+  // Get the contact ID from the request parameters
+  const contact_name = req.params.name;
+  Contact.find({ lastName: { $regex: contact_name } }, function (err, result) {
+    if (err) {
+      res.status(400).send({
+        success: false,
+        error: err.message,
+      });
+    }
+    res.status(200).send({
+      success: true,
+      size: result.length,
+      data: result,
+    });
+  });
 });
 
 module.exports = contactRouter;
