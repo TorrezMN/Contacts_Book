@@ -6,15 +6,15 @@ n_posts = 30
 
 
 def get_random_posts():
-    response = requests.get(f"http://localhost:3000/posts/random_n_posts/{n_posts}")
-    data = response.json()["data"]
+    response = requests.get("http://localhost:3000/contacts")
+    data = response.json()
     global ids
-    ids = [i["_id"] for i in data]
+    ids = [i["_id"] for i in data["data"]]
 
 
 def random_delete():
     for i in ids:
-        delete_url = f"http://localhost:3000/posts/{i}"
+        delete_url = f"http://localhost:3000/contacts/{i}"
         response = requests.delete(delete_url)
 
         # Check if the request was successful
@@ -29,4 +29,5 @@ def random_delete():
 
 if __name__ == "__main__":
     get_random_posts()
+    print("\n" * 44)
     random_delete()

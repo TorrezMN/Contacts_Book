@@ -8,10 +8,6 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <center>
             <h2>This is my app.</h2>
-            <h2>This is my app.</h2>
-            <h2>This is my app.</h2>
-            <h2>This is my app.</h2>
-            <h2>This is my app.</h2>
         </center>
         <a
           className="App-link"

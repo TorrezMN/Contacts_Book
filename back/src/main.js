@@ -1,53 +1,51 @@
 // server.js
-const express = require('express');
+const express = require("express");
 const app = express();
 const PORT = 3000;
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   const test_data = {
-    test_data: 'sjlkfd33333333AAAA',
-  }
-    res.send(test_data);
+    test_data: "sjlkfd33333333AAAA",
+  };
+  res.send(test_data);
 });
 
-app.get('/tests', (req, res) => {
-    res.send("ESTA ES UNA URL PARA TEST! ");
+app.get("/tests", (req, res) => {
+  res.send("ESTA ES UNA URL PARA TEST! ");
 });
 
-app.get('/la_mierda_digo', (req, res) => {
-    res.send("ESTA MIERDA NO ANDA!!! ");
+app.get("/la_mierda_digo", (req, res) => {
+  res.send("ESTA MIERDA NO ANDA!!! ");
 });
-
-
-
-
 
 app.listen(PORT, function () {
-    console.log(`Server Listening on ${PORT}`);
+  console.log(`Server Listening on ${PORT}`);
 });
 
 // Our DB Configuration
 // require('./src/database');
-require('./database');
+require("./database");
 
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 
-// Routes
-// const postRouter = require('./src/routes/post.router');
-const postRouter = require('./routes/post.router');
+// Routers
+const postRouter = require("./routes/post.router");
+const contactsRouter = require("./routes/contacts.rounter");
 
 app.use(
   bodyParser.urlencoded({
-    extended: true
-  })
+    extended: true,
+  }),
 );
 app.use(bodyParser.json());
 
-app.use('/posts', postRouter);
+// ROUTES
+app.use("/posts", postRouter);
+app.use("/contacts", contactsRouter);
 
 router = express.Router();
 
 // will redirect all the non-api routes to react frontend
 // router.use(function(req, res) {
-    // res.sendFile(path.join(__dirname, '../client','build','index.html'));
+// res.sendFile(path.join(__dirname, '../client','build','index.html'));
 // });
