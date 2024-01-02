@@ -28,7 +28,7 @@ for i in range(500):
         "name": f.name(),
         "lastName": f.last_name(),
         "age": random.randint(10, 50),
-        "dateOfBirth": convert_date_to_mongo("23/04/1042"),
+        "dateOfBirth": f.date(),
         "address": f.address(),
         "phoneNumber": f.phone_number(),
         "role": random.choice(["friend", "family", "coworker"]),

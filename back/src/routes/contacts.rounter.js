@@ -113,6 +113,45 @@ contactRouter.post("/filter_by_address/:l_address", async (req, res, next) => {
 });
 
 
+contactRouter.post("/filter_by_role/:contact_role", async (req, res, next) => {
+  // Get the contact ID from the request parameters
+  const c_role = req.params.contact_role;
+  Contact.find({ role: { $regex: c_role } }, function (err, result) {
+    if (err) {
+      res.status(400).send({
+        success: false,
+        error: err.message,
+      });
+    }
+    res.status(200).send({
+      success: true,
+      size: result.length,
+      data: result,
+    });
+  });
+});
+
+
+contactRouter.post("/filter_by_dob/:dob1/:dob2", async (req, res, next) => {
+  // Get the contact ID from the request parameters
+  const startDate = req.params.dob1;
+  const endDate = req.params.dob2;
+
+  Contact.find({ dateOfBirth: { $gte: startDate, $lt: endDate } }, function (err, result) {
+    if (err) {
+      res.status(400).send({
+        success: false,
+        error: err.message,
+      });
+    }
+    res.status(200).send({
+      success: true,
+      size: result.length,
+      data: result,
+    });
+  });
+});
+
 
 
 module.exports = contactRouter;
