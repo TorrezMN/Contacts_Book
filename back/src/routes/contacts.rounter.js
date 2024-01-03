@@ -153,5 +153,25 @@ contactRouter.post("/filter_by_dob/:dob1/:dob2", async (req, res, next) => {
 });
 
 
+contactRouter.post("/filter_by_age/:age1/:age2", async (req, res, next) => {
+  // Get the contact ID from the request parameters
+  const start_age = req.params.age1;
+  const end_age =   req.params.age2;
+
+  Contact.find({ age: { $gte: start_age, $lt: end_age } }, function (err, result) {
+    if (err) {
+      res.status(400).send({
+        success: false,
+        error: err.message,
+      });
+    }
+    res.status(200).send({
+      success: true,
+      size: result.length,
+      data: result,
+    });
+  });
+});
+
 
 module.exports = contactRouter;
