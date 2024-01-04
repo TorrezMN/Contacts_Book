@@ -1,11 +1,15 @@
 import requests
 import random
+import os
 
 
 n_posts = 30
 
 
 def get_random_posts():
+
+
+
     response = requests.get("http://localhost:3000/contacts")
     data = response.json()
     global ids

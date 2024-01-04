@@ -2,13 +2,13 @@ import requests
 import random
 
 
-def get_random_posts(d1,d2):
+def get_random_posts(d1, d2):
     base_url = f"http://localhost:3000/contacts/filter_by_dob/{d1}/{d2}"
     print("REQUESTING THIS URL -> ", base_url)
     response = requests.post(base_url)
     data = response.json()
     for i in data["data"]:
-        print(i['dateOfBirth'])
+        print(i["dateOfBirth"])
 
 
 if __name__ == "__main__":

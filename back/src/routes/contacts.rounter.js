@@ -5,6 +5,7 @@ const Contact = require("../models/contact.model.js");
 // Import CRUD helpres.
 
 contactRouter.get("/", (req, res) => {
+  //Gets a list of all contacts.
   Contact.find({}, function (err, result) {
     if (err) {
       res.status(400).send({
@@ -21,6 +22,7 @@ contactRouter.get("/", (req, res) => {
 });
 
 contactRouter.post("/", async (req, res) => {
+  //Create a new contact.
   let newContact = {
     name: req.body.name,
     lastName: req.body.lastName,
@@ -39,7 +41,6 @@ contactRouter.post("/", async (req, res) => {
   }
 });
 
-/* Delete Single Post */
 contactRouter.delete("/:contact_id", async (req, res, next) => {
   // Get the contact ID from the request parameters
   const contactId = req.params.contact_id;
@@ -77,6 +78,7 @@ contactRouter.post("/filter_by_name/:name", async (req, res, next) => {
 });
 
 contactRouter.post("/filter_by_last_name/:name", async (req, res, next) => {
+  // Filter contacts by last name.
   // Get the contact ID from the request parameters
   const contact_name = req.params.name;
   Contact.find({ lastName: { $regex: contact_name } }, function (err, result) {
@@ -97,21 +99,23 @@ contactRouter.post("/filter_by_last_name/:name", async (req, res, next) => {
 contactRouter.post("/filter_by_address/:l_address", async (req, res, next) => {
   // Get the contact ID from the request parameters
   const location_address = req.params.l_address;
-  Contact.find({ address: { $regex: location_address } }, function (err, result) {
-    if (err) {
-      res.status(400).send({
-        success: false,
-        error: err.message,
+  Contact.find(
+    { address: { $regex: location_address } },
+    function (err, result) {
+      if (err) {
+        res.status(400).send({
+          success: false,
+          error: err.message,
+        });
+      }
+      res.status(200).send({
+        success: true,
+        size: result.length,
+        data: result,
       });
-    }
-    res.status(200).send({
-      success: true,
-      size: result.length,
-      data: result,
-    });
-  });
+    },
+  );
 });
-
 
 contactRouter.post("/filter_by_role/:contact_role", async (req, res, next) => {
   // Get the contact ID from the request parameters
@@ -131,47 +135,50 @@ contactRouter.post("/filter_by_role/:contact_role", async (req, res, next) => {
   });
 });
 
-
 contactRouter.post("/filter_by_dob/:dob1/:dob2", async (req, res, next) => {
   // Get the contact ID from the request parameters
   const startDate = req.params.dob1;
   const endDate = req.params.dob2;
 
-  Contact.find({ dateOfBirth: { $gte: startDate, $lt: endDate } }, function (err, result) {
-    if (err) {
-      res.status(400).send({
-        success: false,
-        error: err.message,
+  Contact.find(
+    { dateOfBirth: { $gte: startDate, $lt: endDate } },
+    function (err, result) {
+      if (err) {
+        res.status(400).send({
+          success: false,
+          error: err.message,
+        });
+      }
+      res.status(200).send({
+        success: true,
+        size: result.length,
+        data: result,
       });
-    }
-    res.status(200).send({
-      success: true,
-      size: result.length,
-      data: result,
-    });
-  });
+    },
+  );
 });
-
 
 contactRouter.post("/filter_by_age/:age1/:age2", async (req, res, next) => {
   // Get the contact ID from the request parameters
   const start_age = req.params.age1;
-  const end_age =   req.params.age2;
+  const end_age = req.params.age2;
 
-  Contact.find({ age: { $gte: start_age, $lt: end_age } }, function (err, result) {
-    if (err) {
-      res.status(400).send({
-        success: false,
-        error: err.message,
+  Contact.find(
+    { age: { $gte: start_age, $lt: end_age } },
+    function (err, result) {
+      if (err) {
+        res.status(400).send({
+          success: false,
+          error: err.message,
+        });
+      }
+      res.status(200).send({
+        success: true,
+        size: result.length,
+        data: result,
       });
-    }
-    res.status(200).send({
-      success: true,
-      size: result.length,
-      data: result,
-    });
-  });
+    },
+  );
 });
-
 
 module.exports = contactRouter;
