@@ -1,7 +1,12 @@
 // server.js
 const express = require("express");
+const cors = require("cors");
+
 const app = express();
 const PORT = 3000;
+
+// Configuración de CORS para permitir solicitudes desde cualquier origen
+app.use(cors({ origin: "http://localhost" }));
 
 app.get("/", (req, res) => {
   const test_data = {
