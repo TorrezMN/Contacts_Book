@@ -28,7 +28,7 @@ function ListContacts() {
       {data ? (
         data.data.map((item, index) => (
           <p>
-            {index} - {item.name}
+            {index} - <a href='#'> <b> {item.lastName}</b> , {item.name}</a>
           </p>
         ))
       ) : (
